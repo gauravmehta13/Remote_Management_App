@@ -32,7 +32,7 @@ class Docker_help extends StatelessWidget {
                 backgroundColor: Colors.green,
                 foregroundColor: Colors.white,
                 icon: Icon(Icons.live_help),
-                label: Text('Click here for more info abou Docker'),
+                label: Text('Click here for more info about Docker'),
                 onPressed: () =>
                     launch("https://docs.docker.com/get-started/overview/"))
           ],
