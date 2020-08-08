@@ -15,15 +15,17 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: Text('RemoteManagementApp'),
+        centerTitle: true,
       ),
       drawer: DrawerList(),
       body: SafeArea(
         child: Column(
           children: <Widget>[
             SizedBox(
-              height: 30,
+              height: 130,
             ),
             Text(
               'Execute commands on server',
