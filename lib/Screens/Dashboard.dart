@@ -1,3 +1,4 @@
+import 'package:RemoteManagementApp/Drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -17,7 +18,7 @@ class _DashboardState extends State<Dashboard> {
       appBar: AppBar(
         title: Text('RemoteManagementApp'),
       ),
-      drawer: Drawer(),
+      drawer: DrawerList(),
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -81,7 +82,7 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   Text(
                     '${output}',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w200),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
                   )
                 ],
               ),

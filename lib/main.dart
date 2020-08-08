@@ -1,4 +1,4 @@
-import 'package:RemoteManagementApp/Dashboard.dart';
+import 'package:RemoteManagementApp/Screens/Dashboard.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
