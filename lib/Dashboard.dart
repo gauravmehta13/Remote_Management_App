@@ -17,6 +17,7 @@ class _DashboardState extends State<Dashboard> {
       appBar: AppBar(
         title: Text('RemoteManagementApp'),
       ),
+      drawer: Drawer(),
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -51,7 +52,7 @@ class _DashboardState extends State<Dashboard> {
             RaisedButton(
               child: Text('Execute'),
               onPressed: () async {
-                var url = "http://13.126.39.8/cgi-bin/${commandName}.py";
+                var url = "http://35.168.3.119/cgi-bin/rmm.py?x=${commandName}";
                 var result = await http.get(url);
                 var data = result.body;
                 setState(() {
@@ -80,9 +81,7 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   Text(
                     '${output}',
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
                   )
                 ],
               ),
