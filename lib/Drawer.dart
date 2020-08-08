@@ -27,8 +27,7 @@ class DrawerList extends StatelessWidget {
                 gravity: ToastGravity.BOTTOM,
                 backgroundColor: Colors.yellowAccent,
                 textColor: Colors.black,
-                fontSize: 16.0
-                ),
+                fontSize: 16.0),
           ),
           decoration: new BoxDecoration(
               image: new DecorationImage(
@@ -41,8 +40,8 @@ class DrawerList extends StatelessWidget {
             trailing: new Icon(Icons.code),
             onTap: () {
               Navigator.of(context).pop();
-              //Navigator.of(context).push(new MaterialPageRoute(
-                //  builder: (BuildContext context) => Dashboard()));
+              Navigator.of(context).push(new MaterialPageRoute(
+                  builder: (BuildContext context) => Dashboard()));
             }),
         new ListTile(
             title: new Text("Docker"),
