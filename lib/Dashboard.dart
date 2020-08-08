@@ -73,7 +73,7 @@ class _DashboardState extends State<Dashboard> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
-                      color: Colors.red,
+                      color: Colors.blue,
                     ),
                   ),
                   SizedBox(
@@ -81,7 +81,7 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   Text(
                     '${output}',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w200),
                   )
                 ],
               ),
