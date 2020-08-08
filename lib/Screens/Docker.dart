@@ -13,12 +13,41 @@ class Docker extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: Text('Coming Soon',
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: 40,
-                fontWeight: FontWeight.w800)),
+      body: Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(10),
+        margin: EdgeInsets.all(5),
+        color: Colors.amber.shade200,
+        child: Column(
+          children: <Widget>[
+            Container(
+              child: InkWell(
+                onTap: () => print('tapped'),
+                child: Card(
+                  elevation: 5,
+                  color: Colors.cyan.shade100,
+                  child: Text(
+                    'Docker Image Queries',
+                    style: TextStyle(fontSize: 30),
+                  ), 
+                ),
+              ),
+            ),
+            Container(
+              child: InkWell(
+                onTap: () => print('tapped'),
+                child: Card(
+                elevation: 5,
+                color: Colors.cyan.shade100,
+                child: Text(
+                  'Docker Run Queries',
+                  style: TextStyle(fontSize: 30),  
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
