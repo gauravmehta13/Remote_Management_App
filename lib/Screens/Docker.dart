@@ -1,4 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+var imagename, tag, cName;
+
+dockerPull(imagename, {tag='latest'}) async {
+  var url = 'http://35.168.3.119/cgi-bin/dockerimagepull.py?x=$imagename&y=$tag';
+  var response =  await http.get(url);
+  print(response.body); 
+}
+
+
+dokckerRun(imagename,tag,cName) async{
+  var url = 'http://35.168.3.119/cgi-bin/dockerrun.py?x=$imagename&y=$tag&z=$cName';
+  var response =  await http.get(url);
+  print(response.body);
+}
+
+imageDel(imagename, tag) async {
+  var url = 'http://35.168.3.119/cgi-bin/imagedel.py?x=$imagename&y=$tag';
+  var response =  await http.get(url);
+  print(response.body);
+}
+
+containerDel(cName) async {
+  var url = 'http://35.168.3.119/cgi-bin/containerdel.py?x=$cName';
+  var response =  await http.get(url);
+  print(response.body);
+}
 
 class Docker extends StatelessWidget {
   @override
@@ -36,7 +64,7 @@ class Docker extends StatelessWidget {
                       border: OutlineInputBorder(),
                     ),
                     onChanged: (x) {
-                      //    commandName = x;
+                      imagename = x;
                     },
                   ),
                 ),
@@ -47,18 +75,20 @@ class Docker extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: "Enter Version(leave blank for latest)",
+                      hintText: "Enter Tag {Type lastest if not sure}",
                       border: OutlineInputBorder(),
                     ),
                     onChanged: (x) {
-                      //    commandName = x;
+                      tag = x;
                     },
                   ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                RaisedButton(child: Text('Execute'), onPressed: () {})
+                RaisedButton(child: Text('Execute'), onPressed: () {
+                  dockerPull(imagename,tag: tag);
+                })
               ])
             ],
           ),
@@ -79,7 +109,22 @@ class Docker extends StatelessWidget {
                       border: OutlineInputBorder(),
                     ),
                     onChanged: (x) {
-                      //    commandName = x;
+                          imagename = x;
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: "Enter Tag {Type lastest if not sure}",
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: (x) {
+                      tag = x;
                     },
                   ),
                 ),
@@ -94,14 +139,16 @@ class Docker extends StatelessWidget {
                       border: OutlineInputBorder(),
                     ),
                     onChanged: (x) {
-                      //    commandName = x;
+                      cName = x;
                     },
                   ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                RaisedButton(child: Text('Execute'), onPressed: () {})
+                RaisedButton(child: Text('Execute'), onPressed: () {
+                  dokckerRun(imagename, tag, cName);
+                })
               ])
             ],
           ),
@@ -122,13 +169,32 @@ class Docker extends StatelessWidget {
                       hintText: "Enter the Image You Want to Delete",
                       border: OutlineInputBorder(),
                     ),
-                    onChanged: (x) {},
+                    onChanged: (x) {
+                      imagename = x;
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: "Enter Tag {Type lastest if not sure}",
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: (x) {
+                      tag = x;
+                    },
                   ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                RaisedButton(child: Text('Delete'), onPressed: () {})
+                RaisedButton(child: Text('Delete'), onPressed: () {
+                  imageDel(imagename, tag);
+                })
               ])
             ],
           ),
@@ -145,33 +211,20 @@ class Docker extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: "Container To delete",
+                      hintText: "Container Name To delete",
                       border: OutlineInputBorder(),
                     ),
                     onChanged: (x) {
-                      //    commandName = x;
+                      cName = x;
                     },
                   ),
                 ),
-                /* SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: "Enter Version(leave blank for latest)",
-                      border: OutlineInputBorder(),
-                    ),
-                    onChanged: (x) {
-                      //    commandName = x;
-                    },
-                  ),
-                ),*/
                 SizedBox(
                   height: 20,
                 ),
-                RaisedButton(child: Text('Delete'), onPressed: () {})
+                RaisedButton(child: Text('Delete'), onPressed: () {
+                  containerDel(cName);
+                })
               ])
             ],
           ),
