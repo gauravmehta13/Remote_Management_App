@@ -84,7 +84,10 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   Text(
                     '${output}',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400,),
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                    ),
                   )
                 ],
               ),

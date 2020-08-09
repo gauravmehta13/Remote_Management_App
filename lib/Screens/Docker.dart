@@ -1,58 +1,70 @@
+import 'package:RemoteManagementApp/Screens/Help.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:fluttertoast/fluttertoast.dart';
 
-var imagename, tag, cName, cmd, nName;
+import 'Docker_Output.dart';
 
-dockerPull(imagename, {tag='latest'}) async {
-  var url = 'http://35.168.3.119/cgi-bin/dockerimagepull.py?x=$imagename&y=$tag';
-  var response =  await http.get(url);
-  print(response.body); 
+var imagename, tag, cName, cmd, nName, output;
+
+dockerPull(imagename, {tag = 'latest'}) async {
+  var url =
+      'http://35.168.3.119/cgi-bin/dockerimagepull.py?x=$imagename&y=$tag';
+  var response = await http.get(url);
+  print(response.body);
+  output = response.body;
 }
 
-
-dokckerRun(imagename,tag,cName) async{
-  var url = 'http://35.168.3.119/cgi-bin/dockerrun.py?x=$imagename&y=$tag&z=$cName';
-  var response =  await http.get(url);
+dokckerRun(imagename, tag, cName) async {
+  var url =
+      'http://35.168.3.119/cgi-bin/dockerrun.py?x=$imagename&y=$tag&z=$cName';
+  var response = await http.get(url);
   print(response.body);
 }
 
 imageDel(imagename, tag) async {
   var url = 'http://35.168.3.119/cgi-bin/imagedel.py?x=$imagename&y=$tag';
-  var response =  await http.get(url);
+  var response = await http.get(url);
   print(response.body);
 }
 
 containerDel(cName) async {
   var url = 'http://35.168.3.119/cgi-bin/containerdel.py?x=$cName';
-  var response =  await http.get(url);
+  var response = await http.get(url);
   print(response.body);
 }
 
-dockerExec(cName,cmd) async {
+dockerExec(cName, cmd) async {
   var url = 'http://35.168.3.119/cgi-bin/dockerexec.py?x=$cName&y=$cmd';
-  var response =  await http.get(url);
+  var response = await http.get(url);
   print(response.body);
 }
 
 dockerCommit(cName, nName, tag) async {
-  var url = 'http://35.168.3.119/cgi-bin/dockercommit.py?x=$cName&y=$nName&z=$tag';
-  var response =  await http.get(url);
+  var url =
+      'http://35.168.3.119/cgi-bin/dockercommit.py?x=$cName&y=$nName&z=$tag';
+  var response = await http.get(url);
   print(response.body);
 }
 
 dockerStart(cName) async {
   var url = 'http://35.168.3.119/cgi-bin/dockerstart.py?x=$cName';
-  var response =  await http.get(url);
+  var response = await http.get(url);
   print(response.body);
 }
 
 dockerStop(cName) async {
   var url = 'http://35.168.3.119/cgi-bin/dockerstop.py?x=$cName';
-  var response =  await http.get(url);
+  var response = await http.get(url);
   print(response.body);
 }
 
-class Docker extends StatelessWidget {
+class Docker extends StatefulWidget {
+  @override
+  _DockerState createState() => _DockerState();
+}
+
+class _DockerState extends State<Docker> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,7 +111,7 @@ class Docker extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: "Enter Tag {Type lastest if not sure}",
+                      hintText: "Enter Tag {Type latest if not sure}",
                       border: OutlineInputBorder(),
                     ),
                     onChanged: (x) {
@@ -110,9 +122,20 @@ class Docker extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                RaisedButton(child: Text('Execute'), onPressed: () {
-                  dockerPull(imagename,tag: tag);
-                })
+                RaisedButton(
+                    child: Text('Execute'),
+                    onPressed: () {
+                      dockerPull(imagename, tag: tag);
+                      Navigator.of(context).push(new MaterialPageRoute(
+                          builder: (BuildContext context) => Docker_Output()));
+                      /* Fluttertoast.showToast(
+                          msg: data,
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          backgroundColor: Colors.yellowAccent,
+                          textColor: Colors.black,
+                          fontSize: 16.0);*/
+                    })
               ])
             ],
           ),
@@ -133,7 +156,7 @@ class Docker extends StatelessWidget {
                       border: OutlineInputBorder(),
                     ),
                     onChanged: (x) {
-                          imagename = x;
+                      imagename = x;
                     },
                   ),
                 ),
@@ -170,15 +193,16 @@ class Docker extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                RaisedButton(child: Text('Execute'), onPressed: () {
-                  dokckerRun(imagename, tag, cName);
-                })
+                RaisedButton(
+                    child: Text('Execute'),
+                    onPressed: () {
+                      dokckerRun(imagename, tag, cName);
+                    })
               ])
             ],
           ),
-          //
+          //Delete Docker Image
           ExpansionTile(
-            //Delete Docker Image
             title: Text('Delete Docker Image'),
             leading: Icon(Icons.accessibility),
             children: <Widget>[
@@ -216,9 +240,11 @@ class Docker extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                RaisedButton(child: Text('Delete'), onPressed: () {
-                  imageDel(imagename, tag);
-                })
+                RaisedButton(
+                    child: Text('Delete'),
+                    onPressed: () {
+                      imageDel(imagename, tag);
+                    })
               ])
             ],
           ),
@@ -246,9 +272,11 @@ class Docker extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                RaisedButton(child: Text('Delete'), onPressed: () {
-                  containerDel(cName);
-                })
+                RaisedButton(
+                    child: Text('Delete'),
+                    onPressed: () {
+                      containerDel(cName);
+                    })
               ])
             ],
           ),
@@ -296,9 +324,11 @@ class Docker extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                RaisedButton(child: Text('Execute'), onPressed: () {
-                  dockerExec(cName,cmd);
-                })
+                RaisedButton(
+                    child: Text('Execute'),
+                    onPressed: () {
+                      dockerExec(cName, cmd);
+                    })
               ])
             ],
           ),
@@ -361,9 +391,11 @@ class Docker extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                RaisedButton(child: Text('Execute'), onPressed: () {
-                  dockerCommit(cName,nName,tag);
-                })
+                RaisedButton(
+                    child: Text('Execute'),
+                    onPressed: () {
+                      dockerCommit(cName, nName, tag);
+                    })
               ])
             ],
           ),
@@ -398,9 +430,11 @@ class Docker extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                RaisedButton(child: Text('Execute'), onPressed: () {
-                  dockerStart(cName);
-                })
+                RaisedButton(
+                    child: Text('Execute'),
+                    onPressed: () {
+                      dockerStart(cName);
+                    })
               ])
             ],
           ),
@@ -435,9 +469,11 @@ class Docker extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                RaisedButton(child: Text('Execute'), onPressed: () {
-                  dockerStop(cName);
-                })
+                RaisedButton(
+                    child: Text('Execute'),
+                    onPressed: () {
+                      dockerStop(cName);
+                    })
               ])
             ],
           )
