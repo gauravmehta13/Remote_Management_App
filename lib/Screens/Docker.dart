@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-var imagename, tag, cName;
+var imagename, tag, cName, cmd, nName;
 
 dockerPull(imagename, {tag='latest'}) async {
   var url = 'http://35.168.3.119/cgi-bin/dockerimagepull.py?x=$imagename&y=$tag';
@@ -24,6 +24,30 @@ imageDel(imagename, tag) async {
 
 containerDel(cName) async {
   var url = 'http://35.168.3.119/cgi-bin/containerdel.py?x=$cName';
+  var response =  await http.get(url);
+  print(response.body);
+}
+
+dockerExec(cName,cmd) async {
+  var url = 'http://35.168.3.119/cgi-bin/dockerexec.py?x=$cName&y=$cmd';
+  var response =  await http.get(url);
+  print(response.body);
+}
+
+dockerCommit(cName, nName, tag) async {
+  var url = 'http://35.168.3.119/cgi-bin/dockercommit.py?x=$cName&y=$nName&z=$tag';
+  var response =  await http.get(url);
+  print(response.body);
+}
+
+dockerStart(cName) async {
+  var url = 'http://35.168.3.119/cgi-bin/dockerstart.py?x=$cName';
+  var response =  await http.get(url);
+  print(response.body);
+}
+
+dockerStop(cName) async {
+  var url = 'http://35.168.3.119/cgi-bin/dockerstop.py?x=$cName';
   var response =  await http.get(url);
   print(response.body);
 }
@@ -246,11 +270,11 @@ class Docker extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: "Enter The Command",
+                      hintText: "Container Name",
                       border: OutlineInputBorder(),
                     ),
                     onChanged: (x) {
-                      //    commandName = x;
+                      cName = x;
                     },
                   ),
                 ),
@@ -261,18 +285,20 @@ class Docker extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: "Enter Container Name)",
+                      hintText: "Enter The Command",
                       border: OutlineInputBorder(),
                     ),
                     onChanged: (x) {
-                      //    commandName = x;
+                      cmd = x;
                     },
                   ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                RaisedButton(child: Text('Execute'), onPressed: () {})
+                RaisedButton(child: Text('Execute'), onPressed: () {
+                  dockerExec(cName,cmd);
+                })
               ])
             ],
           ),
@@ -298,7 +324,7 @@ class Docker extends StatelessWidget {
                       border: OutlineInputBorder(),
                     ),
                     onChanged: (x) {
-                      //    commandName = x;
+                      cName = x;
                     },
                   ),
                 ),
@@ -313,14 +339,31 @@ class Docker extends StatelessWidget {
                       border: OutlineInputBorder(),
                     ),
                     onChanged: (x) {
-                      //    commandName = x;
+                      nName = x;
                     },
                   ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                RaisedButton(child: Text('Execute'), onPressed: () {})
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: "Tag name",
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: (x) {
+                      tag = x;
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                RaisedButton(child: Text('Execute'), onPressed: () {
+                  dockerCommit(cName,nName,tag);
+                })
               ])
             ],
           ),
@@ -344,7 +387,9 @@ class Docker extends StatelessWidget {
                       hintText: "Enter Container Name",
                       border: OutlineInputBorder(),
                     ),
-                    onChanged: (x) {},
+                    onChanged: (x) {
+                      cName = x;
+                    },
                   ),
                 ),
                 SizedBox(
@@ -353,10 +398,49 @@ class Docker extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                RaisedButton(child: Text('Execute'), onPressed: () {})
+                RaisedButton(child: Text('Execute'), onPressed: () {
+                  dockerStart(cName);
+                })
               ])
             ],
           ),
+          ExpansionTile(
+            title: Text('Stop A container'),
+            leading: Icon(Icons.accessibility),
+            children: <Widget>[
+              Column(children: <Widget>[
+                SizedBox(
+                  height: 10,
+                ),
+                RaisedButton(
+                    child: Text('List Running Containers'), onPressed: () {}),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: "Enter Container Name",
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: (x) {
+                      cName = x;
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                RaisedButton(child: Text('Execute'), onPressed: () {
+                  dockerStop(cName);
+                })
+              ])
+            ],
+          )
         ]))
         /*Container(
         width: double.infinity,
