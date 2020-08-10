@@ -21,7 +21,7 @@ class _DashboardState extends State<Dashboard> {
         centerTitle: true,
       ),
       drawer: DrawerList(),
-      body: SafeArea(
+      body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             SizedBox(
