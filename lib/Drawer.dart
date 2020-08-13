@@ -8,7 +8,7 @@ class DrawerList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-        child: ListView(
+      child: ListView(
       children: <Widget>[
         UserAccountsDrawerHeader(
           accountEmail: new Text("Mayank , Gaurav , Priya"),
@@ -40,9 +40,10 @@ class DrawerList extends StatelessWidget {
             trailing: new Icon(Icons.code),
             onTap: () {
               Navigator.of(context).pop();
-              Navigator.of(context).push(new MaterialPageRoute(
-                  builder: (BuildContext context) => Dashboard()));
-            }),
+              //Navigator.of(context).push(new MaterialPageRoute(
+                //  builder: (BuildContext context) => Dashboard()));
+            }
+          ),
         new ListTile(
             title: new Text("Docker"),
             trailing: new Icon(Icons.cloud),

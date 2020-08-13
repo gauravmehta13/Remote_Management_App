@@ -1,11 +1,11 @@
 import 'package:RemoteManagementApp/Screens/Help.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:fluttertoast/fluttertoast.dart';
 
 import 'Docker_Output.dart';
 
-var imagename, tag, cName, cmd, nName, output='null';
+var imagename, tag, cName, cmd, nName, output;
 
 dockerPull(imagename, {tag = 'latest'}) async {
   var url =

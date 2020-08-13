@@ -15,7 +15,7 @@ class Docker_Output extends StatelessWidget {
             child:  
             Center(
               child: Text(
-              output,
+              output  ?? "Output will show up here",
               style: TextStyle(fontWeight: FontWeight.w800),
               )
             ),

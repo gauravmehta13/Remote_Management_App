@@ -8,7 +8,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  var output = " ";
+  var op = " ";
   var msgLine = " ";
   String commandName = " ";
   @override
@@ -25,7 +25,7 @@ class _DashboardState extends State<Dashboard> {
         child: Column(
           children: <Widget>[
             SizedBox(
-              height: 130,
+              height: 20,
             ),
             Text(
               'Execute commands on server',
@@ -60,7 +60,7 @@ class _DashboardState extends State<Dashboard> {
                 var data = result.body;
                 setState(() {
                   msgLine = "Output of the ${commandName} comamnd is: ";
-                  output = data;
+                  op = data;
                 });
                 print(data);
               },
@@ -82,9 +82,10 @@ class _DashboardState extends State<Dashboard> {
                   SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    '${output}',
+                  Text(                  
+                    '${op ?? "output will show up here"}',
                     style: TextStyle(
+                      //decoration: BoxDecoration().borderRadius,
                       fontSize: 18,
                       fontWeight: FontWeight.w400,
                     ),
