@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import 'Docker_Output.dart';
 
-var imagename, tag, cName, cmd, nName, output='null';
+var imagename, tag, cName, cmd, nName, output = 'null';
 
 dockerPull(imagename, {tag = 'latest'}) async {
   var url =
@@ -82,7 +82,7 @@ class _DockerState extends State<Docker> {
             IconButton(
               icon: Icon(Icons.assignment),
               onPressed: () => Navigator.of(context).push(new MaterialPageRoute(
-                          builder: (BuildContext context) => Docker_Output())),
+                  builder: (BuildContext context) => Docker_Output())),
             ),
             IconButton(
               icon: Icon(Icons.help_outline),
@@ -103,7 +103,9 @@ class _DockerState extends State<Docker> {
                   height: 10,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40,),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                  ),
                   child: TextField(
                     decoration: InputDecoration(
                       hintText: "Enter Image Name",
