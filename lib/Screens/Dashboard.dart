@@ -60,7 +60,7 @@ class _DashboardState extends State<Dashboard> {
             RaisedButton(
               child: Text('Execute'),
               onPressed: () async {
-                var url = "http://54.165.46.140/cgi-bin/rmm.py?x=$commandName";
+                var url = "http://23.20.227.169/cgi-bin/rmm.py?x=$commandName";
                 var result = await http.get(url);
                 var data = result.body;
                 setState(() {
