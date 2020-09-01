@@ -59,13 +59,8 @@ class _DashboardState extends State<Dashboard> {
                 var result = await http.get(url);
                 var data = result.body;
                 setState(() {
-<<<<<<< HEAD
-                  msgLine = "Output of the $commandName comamnd is: ";
-                  output = data;
-=======
                   msgLine = "Output of the ${commandName} comamnd is: ";
                   op = data;
->>>>>>> 264a9cf1fe1441a705e28891e42e2a476a479068
                 });
                 print(data);
               },
@@ -87,13 +82,8 @@ class _DashboardState extends State<Dashboard> {
                   SizedBox(
                     height: 10,
                   ),
-<<<<<<< HEAD
                   Text(
-                    '$output',
-=======
-                  Text(                  
                     '${op ?? "output will show up here"}',
->>>>>>> 264a9cf1fe1441a705e28891e42e2a476a479068
                     style: TextStyle(
                       //decoration: BoxDecoration().borderRadius,
                       fontSize: 18,

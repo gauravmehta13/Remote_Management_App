@@ -5,11 +5,7 @@ import 'package:http/http.dart' as http;
 
 import 'Docker_Output.dart';
 
-<<<<<<< HEAD
-var imagename, tag, cName, cmd, nName, output = 'null';
-=======
 var imagename, tag, cName, cmd, nName, output;
->>>>>>> 264a9cf1fe1441a705e28891e42e2a476a479068
 
 dockerPull(imagename, {tag = 'latest'}) async {
   var url =
