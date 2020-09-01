@@ -31,7 +31,7 @@ class _IpAddressState extends State<IpAddress> {
                   height: 20,
                 ),
                 RaisedButton(
-                  child: Text('Next'),
+                  child: Text('Abi ip wala add ni kia h just click next'),
                   onPressed: () {
                     print(ipaddr);
                     Navigator.push(
