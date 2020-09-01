@@ -24,8 +24,8 @@ class _DashboardState extends State<Dashboard> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            SizedBox(
-              height: 20,
+            Container(
+              height: MediaQuery.of(context).size.height / 5,
             ),
             Text(
               'Execute commands on server',
@@ -59,7 +59,7 @@ class _DashboardState extends State<Dashboard> {
                 var result = await http.get(url);
                 var data = result.body;
                 setState(() {
-                  msgLine = "Output of the ${commandName} comamnd is: ";
+                  msgLine = "Output of the $commandName comamnd is: ";
                   op = data;
                 });
                 print(data);
