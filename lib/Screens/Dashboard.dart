@@ -2,12 +2,17 @@ import 'package:RemoteManagementApp/Drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+// ignore: must_be_immutable
 class Dashboard extends StatefulWidget {
+  var ipaddr;
+  Dashboard({this.ipaddr});
   @override
-  _DashboardState createState() => _DashboardState();
+  _DashboardState createState() => _DashboardState(ipaddr);
 }
 
 class _DashboardState extends State<Dashboard> {
+  var ipaddr;
+  _DashboardState(this.ipaddr);
   var op = " ";
   var msgLine = " ";
   String commandName = " ";
@@ -55,7 +60,7 @@ class _DashboardState extends State<Dashboard> {
             RaisedButton(
               child: Text('Execute'),
               onPressed: () async {
-                var url = "http://35.168.3.119/cgi-bin/rmm.py?x=$commandName";
+                var url = "http://54.165.46.140/cgi-bin/rmm.py?x=$commandName";
                 var result = await http.get(url);
                 var data = result.body;
                 setState(() {

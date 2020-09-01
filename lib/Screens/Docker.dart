@@ -9,7 +9,7 @@ var imagename, tag, cName, cmd, nName, output;
 
 dockerPull(imagename, {tag = 'latest'}) async {
   var url =
-      'http://35.168.3.119/cgi-bin/dockerimagepull.py?x=$imagename&y=$tag';
+      'http://54.165.46.140/cgi-bin/dockerimagepull.py?x=$imagename&y=$tag';
   var response = await http.get(url);
   print(response.body);
   output = response.body;
@@ -17,14 +17,14 @@ dockerPull(imagename, {tag = 'latest'}) async {
 
 dokckerRun(imagename, tag, cName) async {
   var url =
-      'http://35.168.3.119/cgi-bin/dockerrun.py?x=$imagename&y=$tag&z=$cName';
+      'http://54.165.46.140/cgi-bin/dockerrun.py?x=$imagename&y=$tag&z=$cName';
   var response = await http.get(url);
   print(response.body);
   output = response.body;
 }
 
 imageDel(imagename, tag) async {
-  var url = 'http://35.168.3.119/cgi-bin/imagedel.py?x=$imagename&y=$tag';
+  var url = 'http://54.165.46.140/cgi-bin/imagedel.py?x=$imagename&y=$tag';
   var response = await http.get(url);
   print(response.body);
   output = response.body;

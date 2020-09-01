@@ -1,3 +1,4 @@
+import 'package:RemoteManagementApp/Screens/Ask%20Ip.dart';
 import 'package:RemoteManagementApp/Screens/Dashboard.dart';
 import 'package:RemoteManagementApp/Screens/Docker_help.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,9 @@ class MyApp extends StatelessWidget {
         ),
         home: Dashboard(),
         routes: <String, WidgetBuilder>{
+          '/Dashboard': (BuildContext context) => new Dashboard(),
           '/docker_help': (BuildContext context) => new Docker_help(),
+          '/IpAddress': (BuildContext context) => new IpAddress(),
         });
   }
 }
