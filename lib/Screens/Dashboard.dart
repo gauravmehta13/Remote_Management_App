@@ -55,11 +55,11 @@ class _DashboardState extends State<Dashboard> {
             RaisedButton(
               child: Text('Execute'),
               onPressed: () async {
-                var url = "http://35.168.3.119/cgi-bin/rmm.py?x=${commandName}";
+                var url = "http://35.168.3.119/cgi-bin/rmm.py?x=$commandName";
                 var result = await http.get(url);
                 var data = result.body;
                 setState(() {
-                  msgLine = "Output of the ${commandName} comamnd is: ";
+                  msgLine = "Output of the $commandName comamnd is: ";
                   output = data;
                 });
                 print(data);
@@ -72,7 +72,7 @@ class _DashboardState extends State<Dashboard> {
               child: Column(
                 children: <Widget>[
                   Text(
-                    '${msgLine}',
+                    '$msgLine',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
@@ -83,7 +83,7 @@ class _DashboardState extends State<Dashboard> {
                     height: 10,
                   ),
                   Text(
-                    '${output}',
+                    '$output',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w400,
