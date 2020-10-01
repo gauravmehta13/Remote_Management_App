@@ -1,7 +1,7 @@
 import 'package:RemoteManagementApp/Screens/Help.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:fluttertoast/fluttertoast.dart';
 
 import 'Docker_Output.dart';
 
@@ -9,7 +9,7 @@ var imagename, tag, cName, cmd, nName, output;
 
 dockerPull(imagename, {tag = 'latest'}) async {
   var url =
-      'http://35.168.3.119/cgi-bin/dockerimagepull.py?x=$imagename&y=$tag';
+      'http://54.165.46.140/cgi-bin/dockerimagepull.py?x=$imagename&y=$tag';
   var response = await http.get(url);
   print(response.body);
   output = response.body;
@@ -17,27 +17,31 @@ dockerPull(imagename, {tag = 'latest'}) async {
 
 dokckerRun(imagename, tag, cName) async {
   var url =
-      'http://35.168.3.119/cgi-bin/dockerrun.py?x=$imagename&y=$tag&z=$cName';
+      'http://54.165.46.140/cgi-bin/dockerrun.py?x=$imagename&y=$tag&z=$cName';
   var response = await http.get(url);
   print(response.body);
+  output = response.body;
 }
 
 imageDel(imagename, tag) async {
-  var url = 'http://35.168.3.119/cgi-bin/imagedel.py?x=$imagename&y=$tag';
+  var url = 'http://54.165.46.140/cgi-bin/imagedel.py?x=$imagename&y=$tag';
   var response = await http.get(url);
   print(response.body);
+  output = response.body;
 }
 
 containerDel(cName) async {
   var url = 'http://35.168.3.119/cgi-bin/containerdel.py?x=$cName';
   var response = await http.get(url);
   print(response.body);
+  output = response.body;
 }
 
 dockerExec(cName, cmd) async {
   var url = 'http://35.168.3.119/cgi-bin/dockerexec.py?x=$cName&y=$cmd';
   var response = await http.get(url);
   print(response.body);
+  output = response.body;
 }
 
 dockerCommit(cName, nName, tag) async {
@@ -45,18 +49,21 @@ dockerCommit(cName, nName, tag) async {
       'http://35.168.3.119/cgi-bin/dockercommit.py?x=$cName&y=$nName&z=$tag';
   var response = await http.get(url);
   print(response.body);
+  output = response.body;
 }
 
 dockerStart(cName) async {
   var url = 'http://35.168.3.119/cgi-bin/dockerstart.py?x=$cName';
   var response = await http.get(url);
   print(response.body);
+  output = response.body;
 }
 
 dockerStop(cName) async {
   var url = 'http://35.168.3.119/cgi-bin/dockerstop.py?x=$cName';
   var response = await http.get(url);
   print(response.body);
+  output = response.body;
 }
 
 class Docker extends StatefulWidget {
@@ -72,6 +79,11 @@ class _DockerState extends State<Docker> {
           title: Text('Docker Tools'),
           centerTitle: true,
           actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.assignment),
+              onPressed: () => Navigator.of(context).push(new MaterialPageRoute(
+                  builder: (BuildContext context) => Docker_Output())),
+            ),
             IconButton(
               icon: Icon(Icons.help_outline),
               onPressed: () => Navigator.of(context).pushNamed('/docker_help'),
@@ -126,8 +138,8 @@ class _DockerState extends State<Docker> {
                     child: Text('Execute'),
                     onPressed: () {
                       dockerPull(imagename, tag: tag);
-                      Navigator.of(context).push(new MaterialPageRoute(
-                          builder: (BuildContext context) => Docker_Output()));
+                      /*Navigator.of(context).push(new MaterialPageRoute(
+                          builder: (BuildContext context) => Docker_Output()));*/
                       /* Fluttertoast.showToast(
                           msg: data,
                           toastLength: Toast.LENGTH_SHORT,

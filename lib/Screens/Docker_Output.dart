@@ -1,3 +1,4 @@
+//import 'dart:html';
 import 'package:flutter/material.dart';
 import 'Docker.dart';
 
@@ -8,13 +9,17 @@ class Docker_Output extends StatelessWidget {
         appBar: AppBar(
           title: Text('Output'),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(50.0),
-          child: Center(
+        body: SingleChildScrollView(
+            child: Padding(
+            padding: const EdgeInsets.all(50.0),
+            child:  
+            Center(
               child: Text(
-            output,
-            style: TextStyle(fontWeight: FontWeight.w800),
-          )),
+              output  ?? "Output will show up here",
+              style: TextStyle(fontWeight: FontWeight.w800),
+              )
+            ),
+          ),
         ));
   }
 }

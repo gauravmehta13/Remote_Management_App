@@ -2,13 +2,18 @@ import 'package:RemoteManagementApp/Drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+// ignore: must_be_immutable
 class Dashboard extends StatefulWidget {
+  var ipaddr;
+  Dashboard({this.ipaddr});
   @override
-  _DashboardState createState() => _DashboardState();
+  _DashboardState createState() => _DashboardState(ipaddr);
 }
 
 class _DashboardState extends State<Dashboard> {
-  var output = " ";
+  var ipaddr;
+  _DashboardState(this.ipaddr);
+  var op = " ";
   var msgLine = " ";
   String commandName = " ";
   @override
@@ -21,11 +26,11 @@ class _DashboardState extends State<Dashboard> {
         centerTitle: true,
       ),
       drawer: DrawerList(),
-      body: SafeArea(
+      body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            SizedBox(
-              height: 130,
+            Container(
+              height: MediaQuery.of(context).size.height / 5,
             ),
             Text(
               'Execute commands on server',
@@ -55,12 +60,12 @@ class _DashboardState extends State<Dashboard> {
             RaisedButton(
               child: Text('Execute'),
               onPressed: () async {
-                var url = "http://35.168.3.119/cgi-bin/rmm.py?x=${commandName}";
+                var url = "http://23.20.227.169/cgi-bin/rmm.py?x=$commandName";
                 var result = await http.get(url);
                 var data = result.body;
                 setState(() {
-                  msgLine = "Output of the ${commandName} comamnd is: ";
-                  output = data;
+                  msgLine = "Output of the $commandName comamnd is: ";
+                  op = data;
                 });
                 print(data);
               },
@@ -72,7 +77,7 @@ class _DashboardState extends State<Dashboard> {
               child: Column(
                 children: <Widget>[
                   Text(
-                    '${msgLine}',
+                    '$msgLine',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
@@ -83,8 +88,9 @@ class _DashboardState extends State<Dashboard> {
                     height: 10,
                   ),
                   Text(
-                    '${output}',
+                    '${op ?? "output will show up here"}',
                     style: TextStyle(
+                      //decoration: BoxDecoration().borderRadius,
                       fontSize: 18,
                       fontWeight: FontWeight.w400,
                     ),
